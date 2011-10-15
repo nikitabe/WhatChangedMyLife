@@ -1,0 +1,49 @@
+{% extends "base.htm" %}
+
+{% block head %}
+<script src="/js/view_item.js"></script>
+<link type="text/css" rel="stylesheet" href="/stylesheets/view_item.css" />
+
+{% endblock %}
+
+
+{% block navigation %}
+<a href='/'>WhatChangedMyLife</a> > <a href='/items'>View Items</a> > Item
+{% endblock %}
+
+
+{% block top_text %}
+Item...  Check it out!
+{% endblock %}
+
+{% block main_panel %}
+
+
+<div id="view">
+    {% if user_can_edit %}
+    <a href="#" id='edit_button'>Edit</a>
+    {% endif %}
+
+    <div>
+    {{item.title}}
+        </div>
+    <div>
+        {{item.comment}}
+        </div>
+</div>
+
+<div id="edit">
+    <form action="{{item_url}}" method="post">
+        <div>
+            Title:<br/>
+            <input type='text' name="title" id="title"></input>
+        </div>
+        <div>
+            Description:<br/>
+            <textarea rows=5 cols=100 name="comment" id="comment"></textarea>
+        </div>
+        <input type='submit' value="Submit"/>
+    </form>
+    <a href="#" id='cancel_edit'>Cancel</a>
+</div>
+{% endblock %}

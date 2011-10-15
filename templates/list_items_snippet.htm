@@ -1,0 +1,5 @@
+<ul>
+    {% for d_item in items %}
+    <li>{{d_item.title}} <a href="/item/{{d_item.id}}/{{ d_item.title|escape }}">(View)</a></li>
+    {% endfor %}
+</ul>

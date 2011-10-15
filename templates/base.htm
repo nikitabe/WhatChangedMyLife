@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/style.css" />
+    {% block head %}
+    {%endblock %}
+    
+</head>
+<body>
+    <div class="top">
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class='navigation'>
+                    {% block navigation %}
+                    {%endblock %}
+                    </div>
+                </td>
+                <td align="right">
+                    <div class="greeting">
+                    {{ greeting }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div>
+            
+        <div class='top_text'>
+        {% block top_text %}
+        {% endblock %}
+        </div>
+    </div>
+    <div class="main_panel">
+        {% block main_panel %}
+        {% endblock %}
+    </div>
+</body> 
+</html>

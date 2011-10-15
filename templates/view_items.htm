@@ -1,0 +1,19 @@
+{% extends "base.htm" %}
+
+{% block navigation %}
+<a href='/'>WhatChangedMyLife</a> > My Items
+{% endblock %}
+
+{% block top_text %}
+    So tell us {{user.nickname}}...  What changed your life?
+{% endblock %}
+
+{% block main_panel %}
+<div>
+    {% include "list_items_snippet.htm" %}
+
+    {% if user %}
+        <a href="/items/add">Add</a>
+    {% endif %}
+</div>
+{% endblock %}

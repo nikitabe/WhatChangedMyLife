@@ -1,0 +1,26 @@
+{% extends "base.htm" %}
+
+{% block top_text %}
+Welcome!  Chill... we are working on this crap...
+{% endblock %}
+
+{% block navigation %}
+WhatChangedMyLife   
+{% endblock %}
+
+{% block main_panel %}
+<div>
+    Welcome.  This is my side project.  The goal of WhatChangedMyLife is to allow people to share the experiences that had a major impact on their lives.  You should be able to share on this site, as well as push them out to your social network.  If you have any questions, please <a href='nikita@whatchangedmylife.com'>email me</a>.
+</div>
+<div>
+    {% if user %}
+    In the meantime, we suggest that you log in.
+    {% else %}
+    Now that you logged in, you can <a href="/items">view your list</a>.
+    {% endif %}
+</div>
+<h1>What have people posted already?</h1>
+<div>
+    {% include "list_items_snippet.htm" %}
+</div>
+{% endblock %}

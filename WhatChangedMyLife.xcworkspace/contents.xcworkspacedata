@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "Back-End">
+      <FileRef
+         location = "group:main.py">
+      </FileRef>
+      <FileRef
+         location = "group:backup.py">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Front-End">
+      <FileRef
+         location = "group:templates/add_new_item.htm">
+      </FileRef>
+      <FileRef
+         location = "group:templates/view_items.htm">
+      </FileRef>
+      <FileRef
+         location = "group:templates/base.htm">
+      </FileRef>
+      <FileRef
+         location = "group:templates/view_item.htm">
+      </FileRef>
+      <FileRef
+         location = "group:templates/home.htm">
+      </FileRef>
+      <FileRef
+         location = "group:templates/list_items_snippet.htm">
+      </FileRef>
+      <FileRef
+         location = "group:templates/errror.htm">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Setup">
+      <FileRef
+         location = "group:index.yaml">
+      </FileRef>
+      <FileRef
+         location = "group:app.yaml">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:stylesheets"
+      name = "stylesheets">
+      <FileRef
+         location = "group:style.css">
+      </FileRef>
+      <FileRef
+         location = "group:view_item.css">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:js"
+      name = "js">
+      <FileRef
+         location = "group:view_item.js">
+      </FileRef>
+   </Group>
+</Workspace>
