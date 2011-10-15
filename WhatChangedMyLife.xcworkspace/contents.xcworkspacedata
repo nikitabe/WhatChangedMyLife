@@ -7,9 +7,6 @@
       <FileRef
          location = "group:main.py">
       </FileRef>
-      <FileRef
-         location = "group:backup.py">
-      </FileRef>
    </Group>
    <Group
       location = "container:"
