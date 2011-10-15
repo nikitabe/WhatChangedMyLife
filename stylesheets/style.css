@@ -21,10 +21,25 @@ body {background:#232323; padding:60px; font-family:Arial;}
 .top_text{
     background:#eee;
     color:black;
-    padding:30px;
-    font-size:24px;
+    padding:20px 30px 20px 30px;
     border:1px solid black;
     
+}
+
+.top_text h1{
+    font-size:20pt;
+}
+
+.add_item input{
+    width:100%;
+}
+
+.add_item textarea{
+    width:100%;
+}
+
+.add_item div{
+    padding-bottom:10px;
 }
 
 a.user:link    { color:white; text-decoration:underline; }

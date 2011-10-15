@@ -1,23 +1,24 @@
 {% extends "base.htm" %}
 
 {% block navigation %}
-<a href='/'>Home</a> > <a href='{{parent_url}}'>Items</a> > Add Item
+
+<a href='/'>Home</a> > <a href='{{ parent_url }}'> My Items </a> > Add Item
 {% endblock %}
 
 
 {% block top_text %}
-So tell us {{user.nickname}}...  This is what you got:
+<h1>What changed your life?</h1>
 {% endblock %}
 
 {% block main_panel %}
-<form action="/items/add" method="post">
+<form class="add_item" action="/items/add" method="post">
     <div>
-    Title:<br/>
+    Short Description:<br/>
     <input type='text' name="title" id="title"></input>
     </div>
     <div>
-    Description:<br/>
-    <textarea rows=5 cols=100 name="comment" id="comment"></textarea>
+    Details:<br/>
+    <textarea rows=5 name="comment" id="comment"></textarea>
     </div>
     <input type='submit' value="Add"/>
 </form>

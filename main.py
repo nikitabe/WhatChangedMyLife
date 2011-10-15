@@ -114,10 +114,10 @@ class AddItem( MyPage ):
         user = users.get_current_user()
         user_id = -1
         if( user ):
-            user_id = user.user_id;
+            user_id = user.user_id();
         parent_url = self.get_user_item_url( user_id )
 
-        template_values = {'greeting':greeting}
+        template_values = {'greeting':greeting, 'parent_url':parent_url }
         path = os.path.join( os.path.dirname( __file__ ), 'templates/add_new_item.htm' )
         self.response.out.write( template.render( path, template_values ) )
     
