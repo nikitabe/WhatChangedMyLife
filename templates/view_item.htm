@@ -8,7 +8,7 @@
 
 
 {% block navigation %}
-<a href='/'>WhatChangedMyLife</a> > <a href='/items'>View Items</a> > Item
+<a href='/'>WhatChangedMyLife</a> > <a href='{{ parent_url }}'>Items</a> > Item
 {% endblock %}
 
 
@@ -20,30 +20,29 @@ Item...  Check it out!
 
 
 <div id="view">
-    {% if user_can_edit %}
-    <a href="#" id='edit_button'>Edit</a>
-    {% endif %}
-
-    <div>
-    {{item.title}}
-        </div>
+    <h1>{{item.title}}</h1>
     <div>
         {{item.comment}}
-        </div>
+    </div>
+    {% if user_can_edit %}
+    <div style="padding-top:25px">
+        <a href="#" id='edit_button'>Edit</a>
+    </div>
+    {% endif %}
 </div>
 
 <div id="edit">
     <form action="{{item_url}}" method="post">
         <div>
             Title:<br/>
-            <input type='text' name="title" id="title"></input>
+            <input style="width:100%" type='text' name="title" id="title" value="{{item.title}}"></input>
         </div>
         <div>
             Description:<br/>
-            <textarea rows=5 cols=100 name="comment" id="comment"></textarea>
+            <textarea rows=5 style="width:100%" name="comment" id="comment" >{{item.comment}}</textarea>
         </div>
         <input type='submit' value="Submit"/>
+        <a href="#" id='cancel_edit'>Cancel</a>
     </form>
-    <a href="#" id='cancel_edit'>Cancel</a>
 </div>
 {% endblock %}

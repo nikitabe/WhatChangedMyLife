@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 import os
+import cgi
 
 from google.appengine.ext import db
 from google.appengine.api import users
@@ -35,7 +36,7 @@ class MyPage( webapp.RequestHandler ):
         user = users.get_current_user()
         
         if user:
-            return "Hello %s! <a class='user' href='%s'>Log Out</a>" % (user.nickname(), users.create_logout_url(self.request.uri) )
+            return "<a class='user' href='%s'>Log Out</a>" % (users.create_logout_url(self.request.uri) )
         else:
             return "<a class='user' href='%s'>Log In</a>" % users.create_login_url(self.request.uri) 
     
@@ -44,8 +45,14 @@ class MyPage( webapp.RequestHandler ):
         for it in items:
             it.id = it.key().id()
     
-    def get_item_url(item):
+    def get_item_url(self, item):
         return "/item/%s/%s" % (item.key().id(), cgi.escape(item.title))
+    
+    def get_user_item_url( self, user_id ):
+        if( user_id == -1 ):
+            return "/items"
+        else:
+            return "/items/%s" % user_id
 
 
 class ItemHandler( MyPage ):
@@ -54,17 +61,19 @@ class ItemHandler( MyPage ):
         greeting = self.GenerateGreeting()
         my_item = Item.get_by_id( long(item_id) )
         
+        parent_url = self.get_user_item_url( my_item.owner )
+        
         # Initialize whether this item can be edited by the current user
         user_can_edit = None;
         if( user ):
             user_can_edit = ( my_item.owner == user.user_id() );
         
         # Output
-        template_values = { 'item':my_item, 'greeting':greeting, 'user_can_edit':user_can_edit }
+        template_values = { 'item':my_item, 'greeting':greeting, 'user_can_edit':user_can_edit, 'parent_url':parent_url }
         path = os.path.join( os.path.dirname( __file__ ), 'templates/view_item.htm' )
         self.response.out.write( template.render( path, template_values ) )
-    def post( self, item_id ):
-        user.get_current_user()
+    def post( self, item_id, title ):
+        user = users.get_current_user()
         
         old_item = Item.get_by_id( long(item_id) )
         if( old_item ):
@@ -101,6 +110,13 @@ class ViewItems( MyPage ):
 class AddItem( MyPage ):
     def get( self ):
         greeting = self.GenerateGreeting()
+        
+        user = users.get_current_user()
+        user_id = -1
+        if( user ):
+            user_id = user.user_id;
+        parent_url = self.get_user_item_url( user_id )
+
         template_values = {'greeting':greeting}
         path = os.path.join( os.path.dirname( __file__ ), 'templates/add_new_item.htm' )
         self.response.out.write( template.render( path, template_values ) )
@@ -119,8 +135,13 @@ class MainHandler( MyPage):
         greeting = self.GenerateGreeting()
         items = Item.gql('ORDER BY priority DESC' ).fetch( 100 )     
         self.PrepItemTemplate( items )
+        user = users.get_current_user()
+            
+        user_items_url = '/items'
+        if( user ):
+            user_items_url = '/items/%s' % user.user_id()
         
-        template_values = {'greeting':greeting, 'items':items}
+        template_values = {'greeting':greeting, 'items':items, 'user_items_url':user_items_url}
         path = os.path.join( os.path.dirname( __file__ ), 'templates/home.htm' )
         self.response.out.write( template.render( path, template_values ) )
 
