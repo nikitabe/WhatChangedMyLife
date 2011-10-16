@@ -41,7 +41,7 @@ class Item(db.Model):
                 t = t.strip()
                 tag_item = Tag.get_or_insert( key_name=t )
                 tag_item.name=t
-                tag_item.put() # Is this necessary?  Can I do without this?
+                tag_item.put() # Is this necessary?  Can I do without this?     
                     
                 ti = TagItem()
                 ti.item = self

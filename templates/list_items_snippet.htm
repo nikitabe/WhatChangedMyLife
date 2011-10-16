@@ -1,5 +1,19 @@
 <div class="span9">
-    
+
+	<div class="pagination">
+        <ul>
+            {% if prevuri %}
+            <li class="prev"><a href="{{prevuri}}">&larr; Previous</a></li>
+            {% endif %}
+            {% if page %}
+            <li class="active"><a href="#">Page {{page}}</a></li>
+            {% endif %}
+            {% if nexturi %}
+            <li class="next"><a href="{{nexturi}}">Next &rarr;</a></li>
+            {% endif %}
+        </ul>
+	</div>
+
     {% for d_item in items %}
     <div class="row">
 		<h3><a href="/item/{{d_item.id}}/{{ d_item.title|escape }}">{{d_item.title}}</a></h3>
@@ -22,7 +36,7 @@
 		<li class="prev"><a href="{{prevuri}}">&larr; Previous</a></li>
 		{% endif %}
 		{% if page %}
-		<li class="active"><a href="#">Current</a></li>
+		<li class="active"><a href="#">Page {{page}}</a></li>
 		{% endif %}
 		{% if nexturi %}
 		<li class="next"><a href="{{nexturi}}">Next &rarr;</a></li>

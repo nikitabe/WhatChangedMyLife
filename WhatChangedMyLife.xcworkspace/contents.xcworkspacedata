@@ -42,9 +42,6 @@
          location = "group:templates/list_items_snippet.htm">
       </FileRef>
       <FileRef
-         location = "group:templates/list_items_snippet.htm">
-      </FileRef>
-      <FileRef
          location = "group:templates/errror.htm">
       </FileRef>
       <FileRef
