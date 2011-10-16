@@ -39,10 +39,10 @@ class MyPage( webapp.RequestHandler ):
         
         if user:
             muser = _get_or_create_user( user )
-            return "%s | <a class='user' href='/profile'>Profile</a> | <a class='user' href='%s'>Log Out</a>" % (muser.username, users.create_logout_url(self.request.uri) )
+            return "<li><a href='/profile'>%s</a></li><li><a href='%s'>My List</a></li><li><a href='%s'>Log Out</a></li>" % (muser.username, self.get_user_item_url( user.user_id()), users.create_logout_url(self.request.uri) )
         else:
-            return "<a class='user' href='%s'>Log In</a>" % users.create_login_url(self.request.uri) 
-    
+            return "<li><a href='%s'>Log In</a></li>" % users.create_login_url(self.request.uri) 
+
     def PrepItemTemplate( self, items ):
         #ID is not automatically inserted
         for it in items:
@@ -160,7 +160,7 @@ class MainHandler( MyPage):
             user_items_url = '/items/%s' % user.user_id()
         
         template_values = {'greeting':greeting, 'items':items, 'user_items_url':user_items_url}
-        path = os.path.join( os.path.dirname( __file__ ), 'templates/home.htm' )
+        path = os.path.join( os.path.dirname( __file__ ), 'templates/home2.htm' )
         self.response.out.write( template.render( path, template_values ) )
 
 class ProfileHandler( MyPage ):

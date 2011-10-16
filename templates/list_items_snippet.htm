@@ -1,5 +1,20 @@
 <ul>
     {% for d_item in items %}
-    <li>{{d_item.title}} <a href="/item/{{d_item.id}}/{{ d_item.title|escape }}">(View)</a></li>
+    <div class="row">
+		<h3><a href="/item/{{d_item.id}}/{{ d_item.title|escape }}">{{d_item.title}}</a></h3>
+		<h5>{{d_item.comment}}</h5>
+		<ul class="media-grid">
+			<li>
+				<a style="float:left;" href="/item/{{d_item.id}}/{{ d_item.title|escape }}">
+					<img class="thumbnail" src="http://placehold.it/210x150" alt=""/>
+				</a>
+			</li>
+			<li>
+				<a style="float:left;" href="/item/{{d_item.id}}/{{ d_item.title|escape }}">
+					<img class="thumbnail" src="http://placehold.it/210x150" alt=""/>
+				</a>
+			</li>
+		</ul>
+	</div>
     {% endfor %}
 </ul>
