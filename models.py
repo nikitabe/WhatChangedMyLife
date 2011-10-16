@@ -90,3 +90,7 @@ def add_item( owner_id, title_in, comment, tags, problem ):
 def get_all_tags():
     tags = Tag.all().fetch(100)
     return tags
+
+def get_items_by_tag( page, tag ):
+    items = Item.all().fetch(50)
+    return items, None
