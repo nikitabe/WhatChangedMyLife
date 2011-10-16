@@ -7,6 +7,9 @@
       <FileRef
          location = "group:main.py">
       </FileRef>
+      <FileRef
+         location = "group:models.py">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
@@ -15,16 +18,22 @@
          location = "group:templates/profile.htm">
       </FileRef>
       <FileRef
+         location = "group:templates/base.htm">
+      </FileRef>
+      <FileRef
+         location = "group:templates/base2.htm">
+      </FileRef>
+      <FileRef
          location = "group:templates/add_new_item.htm">
       </FileRef>
       <FileRef
          location = "group:templates/view_items.htm">
       </FileRef>
       <FileRef
-         location = "group:templates/base.htm">
+         location = "group:templates/view_item.htm">
       </FileRef>
       <FileRef
-         location = "group:templates/view_item.htm">
+         location = "group:templates/home2.htm">
       </FileRef>
       <FileRef
          location = "group:templates/home.htm">

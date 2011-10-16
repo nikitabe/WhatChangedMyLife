@@ -12,6 +12,17 @@ indexes:
 
 - kind: Item
   properties:
+  - name: __key__
+    direction: desc
+
+- kind: Item
+  properties:
+  - name: owner
+  - name: date_submitted
+    direction: desc
+
+- kind: Item
+  properties:
   - name: owner
   - name: priority
     direction: desc

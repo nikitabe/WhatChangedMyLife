@@ -1,20 +1,40 @@
 <ul>
+    {% if prevuri %}
+    <a href='{{prevuri}}'><<</a>
+        {% endif %}
+        
+        {% if page %}
+        Page {{page}}.
+        {% endif %}
+        
+        
+        {% if nexturi %}
+        <a href='{{nexturi}}'>Next</a>
+        {% endif %}
+
+    
     {% for d_item in items %}
     <div class="row">
 		<h3><a href="/item/{{d_item.id}}/{{ d_item.title|escape }}">{{d_item.title}}</a></h3>
-		<h5>{{d_item.comment}}</h5>
-		<ul class="media-grid">
-			<li>
-				<a style="float:left;" href="/item/{{d_item.id}}/{{ d_item.title|escape }}">
-					<img class="thumbnail" src="http://placehold.it/210x150" alt=""/>
-				</a>
-			</li>
-			<li>
-				<a style="float:left;" href="/item/{{d_item.id}}/{{ d_item.title|escape }}">
-					<img class="thumbnail" src="http://placehold.it/210x150" alt=""/>
-				</a>
-			</li>
-		</ul>
+		<p>{{d_item.comment}}</p>
+        {% if d_item.tags %}
+        <p>Tags: {{d_item.tags}}</p>
+        {% endif %}
+        <p>Posted by {{d_item.username}}</p>
+        <hr/>
 	</div>
     {% endfor %}
+
+    {% if prevuri %}
+    <a href='{{prevuri}}'><<</a>
+    {% endif %}
+
+    {% if page %}
+        Page {{page}}.
+    {% endif %}
+
+
+    {% if nexturi %}
+    <a href='{{nexturi}}'>Next</a>
+    {% endif %}
 </ul>

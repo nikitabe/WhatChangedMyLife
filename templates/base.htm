@@ -2,55 +2,38 @@
 <html>
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
-	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="/stylesheets/style.css" />
     {% block head %}
     {%endblock %}
+    
 </head>
 <body>
-<!--{% block navigation %}
-{%endblock %}-->
-	<div class="topbar">
-		<div class="topbar-inner">
-			<div class="container">
-				<h3>
-					<a href="/">What Changed My Life</a>
-				</h3>
-				<ul class="nav">
-					<li>
-						<a href="/">Home</a>
-					</li>
-					<li>
-						<a href="/items/add">Submit</a>
-					</li>
-				</ul>
-				<form class="pull-left" action="">
-						<input type="text" placeholder="Search"/>
-				</form>
-				<div class="nav secondary-nav">
-					{{ greeting }}
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-	<section>
-		<div class="page_header">
-			<h1>
-				{% block top_text %}
-				{% endblock %}
-			</h1>
-		</div>
-	</section>
-	<section>
-		{% block main_panel %}
+    <div class="top">
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class='navigation'>
+                    {% block navigation %}
+                    {%endblock %}
+                    </div>
+                </td>
+                <td align="right">
+                    <div class="greeting">
+                    {{ greeting }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div>
+            
+        <div class='top_text'>
+        {% block top_text %}
         {% endblock %}
-	</section>
-	</div>
-	<footer class="footer">
-		<div class="container">
-			Footer.
-		</div>
-	</footer>
+        </div>
+    </div>
+    <div class="main_panel">
+        {% block main_panel %}
+        {% endblock %}
+    </div>
 </body> 
 </html>

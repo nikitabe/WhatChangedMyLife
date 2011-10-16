@@ -66,19 +66,24 @@
 
     </style>
 
-    <!-- Le fav and touch icons -->
+    <!-- Fav and touch icons -->
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-  </head>
+        
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/style.css" />
+        {% block head %}
+        {%endblock %}
+ </head>
 
   <body>
 
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="#">What Changed My Life</a>
+          <a class="brand" href="/">What Changed My Life</a>
           <ul class="nav">
             {% block navigation %}
 			{%endblock %}
@@ -105,13 +110,14 @@
 			{% endblock %}
           </div>
           <div class="span4">
-            <h3>Secondary content</h3>
+          {% block right_panel %}
+          {% endblock %}
           </div>
         </div>
       </div>
 
       <footer>
-        <p>&copy; WhatChangedMyLife.com 2011 | <a href='nikita@whatchangedmylife.com'>Email</a></p>
+        <p>&copy; WhatChangedMyLife.com 2011 | <a href='mailto:nikita@whatchangedmylife.com'>Email</a></p>
       </footer>
 
     </div> <!-- /container -->

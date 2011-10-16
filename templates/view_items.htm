@@ -1,11 +1,12 @@
-{% extends "base.htm" %}
+{% extends "base2.htm" %}
 
 {% block navigation %}
-<a href='/'>WhatChangedMyLife</a> > {{username}}'s Items
+<li><a href='/'>></a></li>
+<li class="active"><a>{{username}}'s Items</a></li>
 {% endblock %}
 
 {% block top_text %}
-    <h1>{{user.nickname}}'s items.</h1>
+<h1>{{username}}'s items:</h1>
 {% endblock %}
 
 {% block main_panel %}

@@ -1,4 +1,4 @@
-{% extends "base.htm" %}
+{% extends "base2.htm" %}
 
 {% block head %}
 <script src="/js/view_item.js"></script>
@@ -8,7 +8,10 @@
 
 
 {% block navigation %}
-<a href='/'>WhatChangedMyLife</a> > <a href='{{ parent_url }}'>{{username}}'s Items</a> > Item
+<li><a href='/'>></a> </li>
+<li><a href='{{ parent_url }}'>{{username}}'s Items</a> </li>
+<li><a>></a> </li>
+<li class="active"><a>Item</a></li>
 {% endblock %}
 
 

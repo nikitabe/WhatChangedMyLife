@@ -1,10 +1,3 @@
-body {background:#232323; padding:60px; font-family:Arial;}
-.main_panel{ 
-    background: #fefefe; 
-    padding:30px;
-    color: #4e4e4e;
-    border:1px solid black;
-    font-size: 12px;}
 .statement input {
     border-width: 0px 0px 1px 0px;
     color:black;
@@ -13,29 +6,14 @@ body {background:#232323; padding:60px; font-family:Arial;}
 .emphasize{
     border-bottom: 1px dotted gray;
 }
-.top{
-    color:white;
-    font-size:12px;
-}
 
-.top_text{
-    background:#eee;
-    color:black;
-    padding:20px 30px 20px 30px;
-    border:1px solid black;
-    
-}
-
-.top_text h1{
-    font-size:20pt;
-}
 
 .add_item input{
-    width:100%;
+    width:90%;
 }
 
 .add_item textarea{
-    width:100%;
+    width:90%;
 }
 
 .add_item div{
@@ -43,26 +21,8 @@ body {background:#232323; padding:60px; font-family:Arial;}
 }
 
 .edit_field{
+    width:94%;
     padding:10px;
     background-color:#eee;
     margin-bottom:4px;
 }
-
-a.user:link    { color:white; text-decoration:underline; }
-a.user:visited { color:white; text-decoration:none; }
-a.user:hover   { color:white; text-decoration:underline; }
-a.user:active  { color:red; text-decoration:none; }
-
-div.greeting{
-    padding: 1px 5px 1px 5px;    
-}
-
-div.navigation{
-    padding: 1px 5px 1px 5px;
-}
-
-div.navigation a:link    { color:white; text-decoration:underline; }
-div.navigation a:visited { color:white; text-decoration:none; }
-div.navigation a:hover   { color:white; text-decoration:underline; }
-div.navigation a:active  { color:red; text-decoration:none; }
-

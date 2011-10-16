@@ -1,8 +1,11 @@
-{% extends "base.htm" %}
+{% extends "base2.htm" %}
 
 {% block navigation %}
 
-<a href='/'>Home</a> > <a href='{{ parent_url }}'> {{username}}'s Items </a> > Add Item
+<li><a>></a></li> 
+<li><a href='{{ parent_url }}'> {{username}}'s Items </a></li>
+<li><a>></a></li> 
+<li class="active"><a>Add Item</a></li>
 {% endblock %}
 
 
@@ -12,22 +15,33 @@
 
 {% block main_panel %}
 <form class="add_item" action="/items/add" method="post">
-    <div>
-        Are there products, things, events, movies or anything else that really changed your life for the better?  Is it something everyone should know about?  Post if here!
+    
+    <div class="edit_field">
+        Short Description:<br/>
+        <input type='text' name="title" id="title"></input>
     </div>
     
-    Short Description:<br/>
-    <input type='text' name="title" id="title"></input>
-
-    Details:<br/>
-    <textarea rows=5 name="comment" id="comment"></textarea>
-
-    Tags:<br/>
-    <input type='text' name="tags" id="tags"></input>
-
-    Can you summarlize the problem this solved for you?<br/>
-    <input type='text' name="problem" id="problem"></input>
+    <div class="edit_field">
+        Details:<br/>
+        <textarea rows=5 name="comment" id="comment"></textarea>
+    </div>
+    
+    <div class="edit_field">
+        Tags:<br/>
+        <input type='text' name="tags" id="tags"></input>
+    </div>
+    
+    <div class="edit_field">
+        Can you summarlize the problem this solved for you?<br/>
+        <input type='text' name="problem" id="problem"></input>
+    </div>
     
     <input type='submit' value="Add"/>
 </form>
+{% endblock %}
+
+{% block right_panel %}
+<div>
+    Are there products, things, events, movies or anything else that really changed your life for the better?  Is it something everyone should know about?  Post if here!
+</div>
 {% endblock %}
