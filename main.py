@@ -58,9 +58,9 @@ class MyPage( webapp.RequestHandler ):
             return "/items/%s" % user_id
     
 def _get_or_create_user(user):
-    u = WUser.get_by_key_name(user.email())
+    u = WUser.get_by_key_name(user.user_id())
     if u is None:
-        u = WUser(key_name=user.email())
+        u = WUser(key_name=user.user_id())
     return u
 
 
@@ -69,7 +69,6 @@ class ItemHandler( MyPage ):
         user = users.get_current_user()
         greeting = self.GenerateGreeting()
         my_item = Item.get_by_id( long(item_id) )
-        muser = _get_or_create_user( user )
         
         parent_url = self.get_user_item_url( my_item.owner )
         
@@ -78,6 +77,9 @@ class ItemHandler( MyPage ):
         if( user ):
             user_can_edit = ( my_item.owner == user.user_id() );
         
+        muser = _get_or_create_user( user )
+            
+                
         # Output
         template_values = { 'item':my_item, 'greeting':greeting, 'user_can_edit':user_can_edit, 'parent_url':parent_url, 'username':muser.username }
         path = os.path.join( os.path.dirname( __file__ ), 'templates/view_item.htm' )

@@ -1,0 +1,19 @@
+{% extends "base.htm" %}
+
+{% block navigation %}
+<a href='/'>WhatChangedMyLife</a> > Your Profile
+{% endblock %}
+
+{% block top_text %}
+<h1>Please adjust your profile.</h1>
+{% endblock %}
+
+{% block main_panel %}
+<div>
+<form action="/profile" method="post">
+    Username:
+    <input type='text' name='username' id='username' value='{{username}}'></input>
+    <input type='submit' value='Add'/>    
+</form>
+</div>
+{% endblock %}
