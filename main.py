@@ -194,8 +194,11 @@ class MainHandler( MyPage):
         if( user ):
             user_items_url = '/items/%s' % user.user_id()
         
+        tags = models.get_all_tags()
+                
+                
         template_values = {'greeting':greeting, 'items':items, 'user_items_url':user_items_url,
-                            'prevuri':prevuri, 'nexturi':nexturi, 'page':page + 1 }
+                            'prevuri':prevuri, 'nexturi':nexturi, 'page':page + 1, 'tags':tags }
         path = os.path.join( os.path.dirname( __file__ ), 'templates/home2.htm' )
         self.response.out.write( template.render( path, template_values ) )
 

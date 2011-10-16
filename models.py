@@ -7,6 +7,7 @@ PAGE_SIZE = 5
 
 class Tag( db.Model ):
     #name  is going to be the key    = db.StringProperty()
+    name = db.StringProperty()
     deleted     = db.BooleanProperty( default=False)
 
 class Item(db.Model):
@@ -20,33 +21,30 @@ class Item(db.Model):
     tags_list       = db.ListProperty(db.Key) #new way as references
     deleted         = db.BooleanProperty( default=False)
     
-    
-    
     def update( self, user, title, comment, tags, problem ):
+        
         # check that we can edit this item
         if( self.owner == user.user_id() ):
-
-            ts = TagItem.all().filter( "deleted=", False).filter( "item=", self )
+            """#
+            ts = TagItem.all().filter( "deleted=", False)
             for t in ts:
                 t.deleted = True
                 t.put()
-            
+            """     
             self.title      = title
             self.comment    = comment
             self.tags       = tags
             self.problem    = problem
             
-            new_tags = string.split( comment, ",")
+            new_tags = string.split( tags, ",")
             for t in new_tags:
-                # Get the tags
-                logging.info( t )
                 t = t.strip()
-                tag_item = Tag.get_or_insert( t )
-                ti = TagItem()
-                ti.item = self
-                ti.tag = tag_item
-                ti.put()
-            
+                tag_item = Tag.get_or_insert( key_name=t )
+                #ti = TagItem()
+                #ti.item = self
+                #ti.tag = tag_item
+                #ti.put()
+                 
             self.put()
             return True
         return false
@@ -89,3 +87,6 @@ def add_item( owner_id, title_in, comment, tags, problem ):
     new_item.problem = problem;
     new_item.put()
 
+def get_all_tags():
+    tags = Tag.all().fetch(100)
+    return tags
