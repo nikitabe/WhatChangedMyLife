@@ -218,7 +218,37 @@ class ProfileHandler( MyPage ):
         user.username = self.request.get( 'username' )
         user.put()
         self.redirect( '/' )
+
+class ViewByTag( MyPage ):
+    def get( self, tag ):
+        greeting = self.GenerateGreeting()
+        page = int(self.request.get( 'p', '0' ))
+        if page is None:
+            page = 0
+
+        items, next = models.get_items_by_tag( page, tag )
         
+        if next:
+            nexturi = "/?p=%d" % (page + 1)
+        else:
+            nexturi = None
+        
+        if page > 1:
+            prevuri = "/?p=%d" % (page - 1)
+        elif page == 1:
+            prevuri = "/"
+        else:
+            prevuri = None
+        
+        tags = models.get_all_tags()
+        
+        greeting = self.GenerateGreeting()
+        self.PrepItemTemplate( items )
+        
+        template_values = {'greeting':greeting, 'items':items, 
+            'prevuri':prevuri, 'nexturi':nexturi, 'page':page + 1, 'tags':tags, 'tag':tag }
+        path = os.path.join( os.path.dirname( __file__ ), 'templates/view_items_by_tag.htm' )
+        self.response.out.write( template.render( path, template_values ) )       
 
 def main():
     logging.getLogger().setLevel(logging.DEBUG)
@@ -227,6 +257,7 @@ def main():
                                           ('/items/add', AddItem ),
                                           ('/items/(.*)', ViewItems ),
                                           ('/item/(.*)/(.*)', ItemHandler ),
+                                          ('/tag/(.*)', ViewByTag ),
                                           ('/profile', ProfileHandler )
                                           ],
                                          debug=True)

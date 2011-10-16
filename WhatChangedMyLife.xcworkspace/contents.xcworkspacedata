@@ -44,6 +44,9 @@
       <FileRef
          location = "group:templates/errror.htm">
       </FileRef>
+      <FileRef
+         location = "group:templates/view_items_by_tag.htm">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
