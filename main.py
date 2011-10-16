@@ -25,7 +25,7 @@ from google.appengine.ext.webapp import template
 
 class Item(db.Model):
     date_submitted  = db.DateTimeProperty(auto_now_add=True)
-    comment         = db.StringProperty()
+    comment         = db.TextProperty()
     owner           = db.StringProperty( required=True)
     title           = db.StringProperty( required=True)
     priority        = db.IntegerProperty()
