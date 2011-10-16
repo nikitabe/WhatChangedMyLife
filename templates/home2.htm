@@ -15,6 +15,11 @@ What Changed My Life<br/>
 OK, WTF?  Really?  Another sharing site?  Oh...  Whoa...  this is actually pretty relevant...  hmmm...  do they know about...  waaaait a second...  This is good..  Hell, this is really $^%#ing good.  Damn.  I doubt thee not!
 
 </p>
+<div>
+     {% for tag in tags %}
+    <div>{{tag.name}}</div>
+    {% endfor %}
+</div>
 {% endblock %}
 
 {% block main_panel %}
