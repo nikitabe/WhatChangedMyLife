@@ -51,6 +51,7 @@ class MyPage( webapp.RequestHandler ):
                 it.username = muser.username
             else:
                 it.username = "Anonymous"
+    #self.tag_strings = it.get_tag_strings()
     
     def get_item_url(self, item):
         return "/item/%s/%s" % (item.key().id(), cgi.escape(item.title))
@@ -104,7 +105,8 @@ class ItemHandler( MyPage ):
         
         old_item = models.get_item( long(item_id) )
         if( old_item ):
-            if old_item.update( self.request.get( "title" ),
+            if old_item.update( user,
+                                self.request.get( "title" ),
                                 self.request.get( "comment" ),
                                 self.request.get( "tags" ),
                                 self.request.get( "problem" ) ):                            
@@ -124,9 +126,6 @@ class ViewItems( MyPage ):
         
         if user_id == -1 and user:
             user_id = user.user_id();
-
-        page = int(self.request.get('p', '0'))
-        offset = self.request.get( 'offset' )
                 
         items = models.get_user_items( user_id )
     
@@ -166,6 +165,9 @@ class MainHandler( MyPage):
     def get(self):
         # Handle the pagination
         page = int(self.request.get( 'p', '0' ))
+        if page is None:
+            page = 0
+
         items, next = models.get_paged_items( page )
         if next:
             nexturi = "/?p=%d" % (page + 1)
@@ -193,7 +195,7 @@ class MainHandler( MyPage):
             user_items_url = '/items/%s' % user.user_id()
         
         template_values = {'greeting':greeting, 'items':items, 'user_items_url':user_items_url,
-                            'prevuri':prevuri, 'nexturi':nexturi, 'page':page }
+                            'prevuri':prevuri, 'nexturi':nexturi, 'page':page + 1 }
         path = os.path.join( os.path.dirname( __file__ ), 'templates/home2.htm' )
         self.response.out.write( template.render( path, template_values ) )
 

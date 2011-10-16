@@ -62,6 +62,9 @@
          location = "group:style.css">
       </FileRef>
       <FileRef
+         location = "group:bootstrap.min.css">
+      </FileRef>
+      <FileRef
          location = "group:view_item.css">
       </FileRef>
    </Group>

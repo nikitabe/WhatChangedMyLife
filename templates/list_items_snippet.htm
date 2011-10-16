@@ -2,7 +2,7 @@
     
     
     
-    <div>
+    <div class='record_nav'>
         {% if prevuri %}
         <a href='{{prevuri}}'><<</a>
         {% endif %}
@@ -16,7 +16,7 @@
         <a href='{{nexturi}}'>>></a>
         {% endif %}
     </div>
-
+    <hr/>
     
     
     {% for d_item in items %}
@@ -26,14 +26,17 @@
         {% if d_item.tags %}
         <p>Tags: {{d_item.tags}}</p>
         {% endif %}
+
+        {% for tag in d_item.tag_strings %}
+            <div>{{tag}}</div> 
+        {% endfor %}
         <p>Posted by {{d_item.username}}</p>
         <hr/>
 	</div>
     {% endfor %}
 
 
-
-    <div>
+    <div class='record_nav'>
         {% if prevuri %}
         <a href='{{prevuri}}'><<</a>
         {% endif %}
@@ -46,6 +49,7 @@
         {% if nexturi %}
         <a href='{{nexturi}}'>>></a>
         {% endif %}
+            <hr/>
     </div>
 
 
