@@ -1,17 +1,23 @@
 <ul>
-    {% if prevuri %}
-    <a href='{{prevuri}}'><<</a>
+    
+    
+    
+    <div>
+        {% if prevuri %}
+        <a href='{{prevuri}}'><<</a>
         {% endif %}
         
         {% if page %}
-        Page {{page}}.
+        Page {{page}}
         {% endif %}
         
         
         {% if nexturi %}
-        <a href='{{nexturi}}'>Next</a>
+        <a href='{{nexturi}}'>>></a>
         {% endif %}
+    </div>
 
+    
     
     {% for d_item in items %}
     <div class="row">
@@ -25,16 +31,23 @@
 	</div>
     {% endfor %}
 
-    {% if prevuri %}
-    <a href='{{prevuri}}'><<</a>
-    {% endif %}
-
-    {% if page %}
-        Page {{page}}.
-    {% endif %}
 
 
-    {% if nexturi %}
-    <a href='{{nexturi}}'>Next</a>
-    {% endif %}
+    <div>
+        {% if prevuri %}
+        <a href='{{prevuri}}'><<</a>
+        {% endif %}
+        
+        {% if page %}
+        Page {{page}}
+        {% endif %}
+        
+        
+        {% if nexturi %}
+        <a href='{{nexturi}}'>>></a>
+        {% endif %}
+    </div>
+
+
+
 </ul>
