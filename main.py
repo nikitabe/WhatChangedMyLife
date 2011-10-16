@@ -25,10 +25,12 @@ from google.appengine.ext.webapp import template
 
 class Item(db.Model):
     date_submitted  = db.DateTimeProperty(auto_now_add=True)
-    comment         = db.StringProperty()
+    comment         = db.TextProperty()
     owner           = db.StringProperty( required=True)
     title           = db.StringProperty( required=True)
     priority        = db.IntegerProperty()
+    problem         = db.StringProperty()
+    tags            = db.StringProperty()
 
 class WUser( db.Model ):
     username        = db.StringProperty()
@@ -63,6 +65,12 @@ def _get_or_create_user(user):
         u = WUser(key_name=user.user_id())
     return u
 
+def _get_or_create_user_by_id(user_id):
+    u = WUser.get_by_key_name(user_id)
+    if u is None:
+        u = WUser(key_name=user_id)
+    return u
+
 
 class ItemHandler( MyPage ):
     def get( self, item_id, title ):
@@ -74,11 +82,12 @@ class ItemHandler( MyPage ):
         
         # Initialize whether this item can be edited by the current user
         user_can_edit = None;
+        username = None;
         if( user ):
-            user_can_edit = ( my_item.owner == user.user_id() );
+            user_can_edit = ( my_item.owner == user.user_id() )
         
-        muser = _get_or_create_user( user )
-            
+        # Get the username for the user who owns this item
+        muser = _get_or_create_user_by_id( my_item.owner )
                 
         # Output
         template_values = { 'item':my_item, 'greeting':greeting, 'user_can_edit':user_can_edit, 'parent_url':parent_url, 'username':muser.username }
@@ -91,8 +100,11 @@ class ItemHandler( MyPage ):
         if( old_item ):
             # check that we can edit this item
             if( old_item.owner == user.user_id() ):
-                old_item.title = self.request.get( "title" )
-                old_item.comment = self.request.get( "comment" )
+                old_item.title      = self.request.get( "title" )
+                old_item.comment    = self.request.get( "comment" )
+                old_item.tags       = self.request.get( "tags" );
+                old_item.problem    = self.request.get( "problem" );
+
                 old_item.put()
                 self.redirect( self.get_item_url( old_item ) )
                 return
@@ -106,7 +118,7 @@ class ViewItems( MyPage ):
     def get(self, user_id = -1):
         greeting = self.GenerateGreeting()
         user = users.get_current_user()
-        muser = _get_or_create_user( user )
+        
         
         if user_id == -1 and user:
             user_id = user.user_id();
@@ -115,6 +127,7 @@ class ViewItems( MyPage ):
         
         self.PrepItemTemplate( items )
         
+        muser = _get_or_create_user_by_id( user_id )
         template_values = {'user':user, 'user_id':user_id, 'items':items, 'greeting':greeting, 'username': muser.username}
         
         path = os.path.join( os.path.dirname( __file__ ), 'templates/view_items.htm' )
@@ -140,7 +153,9 @@ class AddItem( MyPage ):
                        title = self.request.get( 'title' ),
                        priority = 1
                        )
-        my_item.comment = self.request.get( 'comment' );
+        my_item.comment = self.request.get( "comment" );
+        my_item.tags    = self.request.get( "tags" );
+        my_item.problem = self.request.get( "problem" );
         my_item.put()
         self.redirect( '/items' )
 
