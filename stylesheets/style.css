@@ -42,6 +42,12 @@ body {background:#232323; padding:60px; font-family:Arial;}
     padding-bottom:10px;
 }
 
+.edit_field{
+    padding:10px;
+    background-color:#eee;
+    margin-bottom:4px;
+}
+
 a.user:link    { color:white; text-decoration:underline; }
 a.user:visited { color:white; text-decoration:none; }
 a.user:hover   { color:white; text-decoration:underline; }

@@ -21,9 +21,22 @@
 
 <div id="view">
     
-    <div>
+    <div class="comment">
         {{item.comment}}
     </div>
+
+    {% if item.tags %}
+    <div class="tags">
+        Tags: {{item.tags}}
+        </div>
+    {% endif %}
+    
+    {% if item.problem %}
+    <div class="problem">
+        Problem: {{item.problem}}
+        </div>
+    {% endif %}
+    
     {% if user_can_edit %}
     <div style="padding-top:25px">
         <a href="#" id='edit_button'>Edit</a>
@@ -33,14 +46,26 @@
 
 <div id="edit">
     <form action="{{item_url}}" method="post">
-        <div>
-            Title:<br/>
-            <input style="width:100%" type='text' name="title" id="title" value="{{item.title}}"></input>
+        <div class="edit_field">
+        Title:<br/>
+        <input style="width:100%" type='text' name="title" id="title" value="{{item.title}}"></input>
         </div>
-        <div>
-            Description:<br/>
-            <textarea rows=5 style="width:100%" name="comment" id="comment" >{{item.comment}}</textarea>
+
+        <div class="edit_field">
+        Description:<br/>
+        <textarea rows=5 style="width:100%" name="comment" id="comment" >{{item.comment}}</textarea>
         </div>
+        
+        <div class="edit_field">
+        Tags:<br/>
+        <input style="width:100%" type='text' name="tags" id="tags" value="{{item.tags}}"></input>
+        </div>
+            
+        <div class="edit_field">
+        Problem:<br/>
+        <input style="width:100%" type='text' name="problem" id="problem" value="{{item.problem}}"></input>
+        </div>
+            
         <input type='submit' value="Submit"/>
         <a href="#" id='cancel_edit'>Cancel</a>
     </form>
