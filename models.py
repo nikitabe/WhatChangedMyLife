@@ -25,12 +25,12 @@ class Item(db.Model):
         
         # check that we can edit this item
         if( self.owner == user.user_id() ):
-            """#
-            ts = TagItem.all().filter( "deleted=", False)
+            
+            ts = TagItem.gql( "where deleted = false and item = :1", self.key() )
             for t in ts:
                 t.deleted = True
                 t.put()
-            """     
+                 
             self.title      = title
             self.comment    = comment
             self.tags       = tags
@@ -40,10 +40,13 @@ class Item(db.Model):
             for t in new_tags:
                 t = t.strip()
                 tag_item = Tag.get_or_insert( key_name=t )
-                #ti = TagItem()
-                #ti.item = self
-                #ti.tag = tag_item
-                #ti.put()
+                tag_item.name=t
+                tag_item.put() # Is this necessary?  Can I do without this?
+                    
+                ti = TagItem()
+                ti.item = self
+                ti.tag = tag_item
+                ti.put()
                  
             self.put()
             return True
@@ -64,7 +67,6 @@ def get_item( id ):
 
 def get_user_items( user_id ):
     return Item.gql('Where owner = :1 ORDER BY date_submitted DESC', user_id ).fetch( 1000 )
-
 
 def get_all_items( offset=None ):
     return Item.gql('ORDER BY priority DESC' ).fetch( 100 )
@@ -91,6 +93,13 @@ def get_all_tags():
     tags = Tag.all().fetch(100)
     return tags
 
-def get_items_by_tag( page, tag ):
-    items = Item.all().fetch(50)
+def get_items_by_tag( page, tag_str ):
+    items = []
+    t = Tag.get_or_insert( tag_str )
+    # Get all tagitems that reference t
+    tis = TagItem.gql( "where deleted = false and tag=:1", t.key() )
+    # for all tagitems, add item
+    for ti in tis:
+        items.append(  Item.get( ti.item.key() ) )
+    
     return items, None
