@@ -14,37 +14,37 @@
 {% endblock %}
 
 {% block main_panel %}
-<form class="add_item" action="/items/add" method="post">
+<form action="/items/add" method="post">
     
 	<div class="clearfix">
 		<label for="xlInput">Short Description:</label>
 		<div class="input">
-			<input class="xlarge" id="title" name="title" size="30" type="text"/>
+			<input class="span7" id="title" name="title" size="30" type="text"/>
 		</div>
 	</div>
 	
 	<div class="clearfix">
 		<label for="xlInput">Details:</label>
 		<div class="input">
-			<textarea class="xxlarge" id="comment" name="comment" rows="3"></textarea>
+			<textarea class="span7" id="comment" name="comment" rows="3"></textarea>
 		</div>
 	</div>
 	
 	<div class="clearfix">
 		<label for="xlInput">Tags:</label>
 		<div class="input">
-			<input class="xlarge" id="tags" name="tags" size="30" type="text"/>
+			<input class="span7" id="tags" name="tags" size="30" type="text"/>
 		</div>
 	</div>
     
 	<div class="clearfix">
 		<label for="xlInput">Can you summarlize the problem this solved for you?</label>
 		<div class="input">
-			<textarea class="xxlarge" id="problem" name="problem" rows="3"></textarea>
+			<textarea class="span7" id="problem" name="problem" rows="3"></textarea>
 		</div>
 	</div>
 	    
-    <input class="btn primary span2" type='submit' value="Add"></input>
+    <input class="btn primary" type='submit' value="Add" style="float:right;margin-right:25px;"></input>
 </form>
 {% endblock %}
 
