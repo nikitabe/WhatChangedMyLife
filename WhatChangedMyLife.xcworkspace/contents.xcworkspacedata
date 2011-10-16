@@ -12,6 +12,9 @@
       location = "container:"
       name = "Front-End">
       <FileRef
+         location = "group:templates/profile.htm">
+      </FileRef>
+      <FileRef
          location = "group:templates/add_new_item.htm">
       </FileRef>
       <FileRef

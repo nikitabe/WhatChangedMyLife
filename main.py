@@ -30,13 +30,16 @@ class Item(db.Model):
     title           = db.StringProperty( required=True)
     priority        = db.IntegerProperty()
 
+class WUser( db.Model ):
+    username        = db.StringProperty()
 
 class MyPage( webapp.RequestHandler ):
     def GenerateGreeting( self ):
         user = users.get_current_user()
         
         if user:
-            return "<a class='user' href='%s'>Log Out</a>" % (users.create_logout_url(self.request.uri) )
+            muser = _get_or_create_user( user )
+            return "%s | <a class='user' href='/profile'>Profile</a> | <a class='user' href='%s'>Log Out</a>" % (muser.username, users.create_logout_url(self.request.uri) )
         else:
             return "<a class='user' href='%s'>Log In</a>" % users.create_login_url(self.request.uri) 
     
@@ -53,6 +56,12 @@ class MyPage( webapp.RequestHandler ):
             return "/items"
         else:
             return "/items/%s" % user_id
+    
+def _get_or_create_user(user):
+    u = WUser.get_by_key_name(user.email())
+    if u is None:
+        u = WUser(key_name=user.email())
+    return u
 
 
 class ItemHandler( MyPage ):
@@ -60,6 +69,7 @@ class ItemHandler( MyPage ):
         user = users.get_current_user()
         greeting = self.GenerateGreeting()
         my_item = Item.get_by_id( long(item_id) )
+        muser = _get_or_create_user( user )
         
         parent_url = self.get_user_item_url( my_item.owner )
         
@@ -69,7 +79,7 @@ class ItemHandler( MyPage ):
             user_can_edit = ( my_item.owner == user.user_id() );
         
         # Output
-        template_values = { 'item':my_item, 'greeting':greeting, 'user_can_edit':user_can_edit, 'parent_url':parent_url }
+        template_values = { 'item':my_item, 'greeting':greeting, 'user_can_edit':user_can_edit, 'parent_url':parent_url, 'username':muser.username }
         path = os.path.join( os.path.dirname( __file__ ), 'templates/view_item.htm' )
         self.response.out.write( template.render( path, template_values ) )
     def post( self, item_id, title ):
@@ -94,6 +104,7 @@ class ViewItems( MyPage ):
     def get(self, user_id = -1):
         greeting = self.GenerateGreeting()
         user = users.get_current_user()
+        muser = _get_or_create_user( user )
         
         if user_id == -1 and user:
             user_id = user.user_id();
@@ -102,7 +113,7 @@ class ViewItems( MyPage ):
         
         self.PrepItemTemplate( items )
         
-        template_values = {'user':user, 'user_id':user_id, 'items':items, 'greeting':greeting}
+        template_values = {'user':user, 'user_id':user_id, 'items':items, 'greeting':greeting, 'username': muser.username}
         
         path = os.path.join( os.path.dirname( __file__ ), 'templates/view_items.htm' )
         self.response.out.write( template.render( path, template_values ) )
@@ -112,12 +123,13 @@ class AddItem( MyPage ):
         greeting = self.GenerateGreeting()
         
         user = users.get_current_user()
+        muser = _get_or_create_user( user )
         user_id = -1
         if( user ):
             user_id = user.user_id();
         parent_url = self.get_user_item_url( user_id )
 
-        template_values = {'greeting':greeting, 'parent_url':parent_url }
+        template_values = {'greeting':greeting, 'parent_url':parent_url, 'username':muser.username }
         path = os.path.join( os.path.dirname( __file__ ), 'templates/add_new_item.htm' )
         self.response.out.write( template.render( path, template_values ) )
     
@@ -136,7 +148,11 @@ class MainHandler( MyPage):
         items = Item.gql('ORDER BY priority DESC' ).fetch( 100 )     
         self.PrepItemTemplate( items )
         user = users.get_current_user()
-            
+        if user:
+            muser = _get_or_create_user( user )
+            if( muser.username is None ):
+                self.redirect( '/profile' )
+                return
         user_items_url = '/items'
         if( user ):
             user_items_url = '/items/%s' % user.user_id()
@@ -145,13 +161,33 @@ class MainHandler( MyPage):
         path = os.path.join( os.path.dirname( __file__ ), 'templates/home.htm' )
         self.response.out.write( template.render( path, template_values ) )
 
+class ProfileHandler( MyPage ):
+    def get( self ):
+        user = users.get_current_user()
+        greeting = self.GenerateGreeting()
+        if user is None:
+            self.redirect( '/' )
+            return
+        our_user = _get_or_create_user(user)
+        
+        template_vars = {'greeting':greeting, 'username':our_user.username}
+        path = os.path.join( os.path.dirname( __file__ ), 'templates/profile.htm' )
+        self.response.out.write( template.render( path, template_vars ) )
+    def post( self ):
+        user = users.get_current_user()
+        muser = _get_or_create_user( user )
+        muser.username = self.request.get( 'username' )
+        muser.put()
+        self.redirect( '/' )
+        
 
 def main():
     application = webapp.WSGIApplication([('/', MainHandler),
                                           ('/items', ViewItems ),
                                           ('/items/add', AddItem ),
                                           ('/items/(.*)', ViewItems ),
-                                          ('/item/(.*)/(.*)', ItemHandler )
+                                          ('/item/(.*)/(.*)', ItemHandler ),
+                                          ('/profile', ProfileHandler )
                                           ],
                                          debug=True)
     util.run_wsgi_app(application)

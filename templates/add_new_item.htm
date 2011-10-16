@@ -2,7 +2,7 @@
 
 {% block navigation %}
 
-<a href='/'>Home</a> > <a href='{{ parent_url }}'> My Items </a> > Add Item
+<a href='/'>Home</a> > <a href='{{ parent_url }}'> {{username}}'s Items </a> > Add Item
 {% endblock %}
 
 
@@ -12,6 +12,10 @@
 
 {% block main_panel %}
 <form class="add_item" action="/items/add" method="post">
+    <div>
+        Are there products, things, events, movies or anything else that really changed your life for the better?  Is it something everyone should know about?  Post if here!
+    </div>
+    
     <div>
     Short Description:<br/>
     <input type='text' name="title" id="title"></input>
